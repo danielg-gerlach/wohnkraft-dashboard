@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --color-primary: 220 104 67;
+        --color-primary-light: 251 146 60;
+    }
+
+    body {
+        @apply bg-gray-50 min-h-screen font-sans;
+    }
+}
+
+@layer components {
+    /* 
+    Logo Replacement Instructions:
+    To replace the logo placeholders, find elements with class containing "LOGO" text
+    and replace with: <img src="/path/to/logo.png" alt="Wohnkraft Immobilien Logo" class="w-10 h-10" />
+    Navigation logo: 40x40px (w-10 h-10)
+    Login logo: 64x64px (w-16 h-16)
+    */
+    
+    .btn-primary {
+        @apply bg-[rgb(var(--color-primary))] text-white px-6 py-3 rounded-lg font-medium hover:bg-[rgb(var(--color-primary))]/90 transition-all duration-200 shadow-sm hover:shadow-md;
+    }
+
+    .btn-secondary {
+        @apply bg-white border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 shadow-sm;
+    }
+
+    .card {
+        @apply bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow duration-200;
+    }
+
+    .input {
+        @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[rgb(var(--color-primary))]/20 focus:border-[rgb(var(--color-primary))] transition-all duration-200 bg-white;
+    }
+}
