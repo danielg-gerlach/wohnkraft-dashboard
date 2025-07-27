@@ -13,18 +13,27 @@ export const useAuthStore = defineStore('auth', {
             this.loading = true
 
             try {
+                console.log('🔑 Auth Store: Starting login for', email)
                 const { data, error } = await supabase.auth.signInWithPassword({
                     email,
                     password
                 })
 
-                if (error) throw error
+                if (error) {
+                    console.error('🔑 Auth Store: Login error', error)
+                    throw error
+                }
 
+                console.log('🔑 Auth Store: Login successful, setting user')
                 this.user = data.user
+                
+                console.log('🔑 Auth Store: Navigating to dashboard')
                 // @ts-ignore
                 await navigateTo('/dashboard')
+                console.log('🔑 Auth Store: Navigation complete')
                 return { success: true }
             } catch (error: any) {
+                console.error('🔑 Auth Store: Login failed', error.message)
                 return { success: false, error: error.message }
             } finally {
                 this.loading = false
@@ -41,8 +50,21 @@ export const useAuthStore = defineStore('auth', {
 
         async checkAuth() {
             const supabase = useSupabase()
-            const { data: { user } } = await supabase.auth.getUser()
-            this.user = user
+            try {
+                console.log('🔍 Auth Store: Checking auth status')
+                const { data: { user }, error } = await supabase.auth.getUser()
+                
+                if (error) {
+                    console.error('🔍 Auth Store: Auth check error', error)
+                    this.user = null
+                } else {
+                    console.log('🔍 Auth Store: User found', user?.email || 'No user')
+                    this.user = user
+                }
+            } catch (error) {
+                console.error('🔍 Auth Store: Auth check failed', error)
+                this.user = null
+            }
         }
     }
 })

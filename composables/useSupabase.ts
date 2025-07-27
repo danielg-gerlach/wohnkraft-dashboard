@@ -10,3 +10,14 @@ export const useSupabase = () => {
 
     return supabase
 }
+
+export const useSupabaseAdmin = () => {
+    const config = useRuntimeConfig()
+
+    const supabase = createClient(
+        config.public.supabaseUrl,
+        config.supabaseServiceKey
+    )
+
+    return supabase
+}
